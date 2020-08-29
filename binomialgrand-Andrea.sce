@@ -1,6 +1,7 @@
 clc;
 format(15);
 ieee(2);
+funcprot(0);
 TRUE = 1;
 FALSE = 0;
 OK=FALSE;
@@ -59,6 +60,5 @@ frecuencia(i) = frecuencia(i) / n;
     end 
 end
 clf;
-bar(frecuencia)
-bar(frecuencia_acumulada)//imprime el contador en forma de grafico
-
+plot(frecuencia)
+plot(frecuencia_acumulada)//imprime el contador en forma de grafico

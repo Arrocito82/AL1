@@ -1,4 +1,5 @@
 clc;
+funcprot(0);
 format(15);
 ieee(2);
 TRUE = 1;
@@ -33,8 +34,7 @@ while OK == FALSE
 end
 //j representa la repetion del experimento en el que estamos
 acumulador=zeros(1,n);//acumula la x de cada iteracion, no excede Numero de ensayos
-frecuencia=zeros(1,NEnsayos);
-frecuencia_acumulada=zeros(1,NEnsayos);
+
 for j=1:n
    for i=1:NEnsayos
         if grand(1,1,"def")<= P then
@@ -44,21 +44,22 @@ for j=1:n
     end
    printf('\nEl Número de éxitos en la iteración %d  fue %d ',j,acumulador(j));
     r=acumulador(j);
-    frecuencia(r)=frecuencia(r)+1;
     j=j+1;
 end
-
-
+frecuencia_acumulada=zeros(1,NEnsayos);
+frecuencia=histplot(NEnsayos,acumulador);
 for i=1:NEnsayos
-frecuencia(i) = frecuencia(i) / n;
     if i==1 then
-        frecuencia_acumulada(1)=frecuencia(1);
-        
-        elseif i>1 & i<=NEnsayos then
-        frecuencia_acumulada(i)=frecuencia_acumulada(i-1)+frecuencia(i);
-    end 
+        frecuencia_acumulada(i)=frecuencia(i);
+        end
+    if i<=NEnsayos & i>1 then
+        frecuencia_acumulada(i)=frecuencia(i)+frecuencia_acumulada(i-1);
+    end
 end
+
+
 clf;
-bar(frecuencia)
-bar(frecuencia_acumulada)//imprime el contador en forma de grafico
+
+bar(frecuencia);plot(frecuencia_acumulada);
+//histplot(frecuencia_acumulada)//imprime el contador en forma de grafico
 
